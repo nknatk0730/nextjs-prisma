@@ -3,13 +3,14 @@ import prisma from "@/lib/db";
 export default async function Page({
   params,
 }: {
-  params: {
+  params: Promise<{
     slug: string;
-  },
+  }>,
 }) {
+  const { slug } = await params;
   const post = await prisma.post.findUnique({
     where: {
-      slug: params.slug,
+      slug,
     },
   });
 
